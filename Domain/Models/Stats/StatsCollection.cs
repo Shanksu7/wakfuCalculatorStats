@@ -93,7 +93,7 @@ namespace Domain.Models.Stats
             var a1 = c.BaseDamage * (applicableDomain / 100.0);
             var damageInflictedAugment = GetInflictedDamage(c);
             var a2 = (a1 + c.BaseDamage) * damageInflictedAugment;
-            var result = a2 * ((100.0 - resistancePercentage) / 100.0);
+            var result = a2 * ((100.0 - (c.IsHealing ? 0: resistancePercentage)) / 100.0);
 
 
             if (addedStats != null)
@@ -147,10 +147,16 @@ namespace Domain.Models.Stats
         {
             var result = this[StatsEnum.INFLICTED_DAMAGE] + (c.IsIndirect ? this[StatsEnum.INDIRECT_DAMAGE] : 0.0);
 
-            if (c.RangeDamageType == RangeDamageEnum.DIST) result += this[StatsEnum.INFLICTED_DAMAGE_DIST];
-            if (c.RangeDamageType == RangeDamageEnum.MELE) result += this[StatsEnum.INFLICTED_DAMAGE_MELE];
-            if (c.RangeDamageType == RangeDamageEnum.HIGHEST) result += Math.Max(this[StatsEnum.INFLICTED_DAMAGE_DIST], this[StatsEnum.INFLICTED_DAMAGE_MELE]);
+            if (c.IsHealing)
+                result += this[StatsEnum.FINAL_HEAL];
+            else
+            {
+                if (c.RangeDamageType == RangeDamageEnum.DIST) result += this[StatsEnum.INFLICTED_DAMAGE_DIST];
+                if (c.RangeDamageType == RangeDamageEnum.MELE) result += this[StatsEnum.INFLICTED_DAMAGE_MELE];
+                if (c.RangeDamageType == RangeDamageEnum.HIGHEST) result += Math.Max(this[StatsEnum.INFLICTED_DAMAGE_DIST], this[StatsEnum.INFLICTED_DAMAGE_MELE]);
+            }
             
+
             return (result / 100.0) + 1.0;
         }
     }

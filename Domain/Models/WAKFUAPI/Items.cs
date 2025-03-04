@@ -28,6 +28,18 @@ namespace Domain.Models.WAKFUAPI
         {
             return $"[{Definition.Item.Id}]" + $"[{Definition.Item.Level}]" + Title.Es;
         }
+        public string Url
+        {
+            get
+            {
+                var text = string.Empty;
+                var urlArmor = "https://www.wakfu.com/es/mmorpg/enciclopedia/armaduras/{0}-{1}";
+                var urlwep = "https://www.wakfu.com/es/mmorpg/enciclopedia/armas/{0}-{1}";
+
+                text += string.Format(urlArmor, Definition.Item.Id, Title.Es.Replace(" ", "-")) + "\n";
+                return text;
+            }
+        }
     }
 
     public class ItemDefinition

@@ -20,13 +20,13 @@ namespace WakfuItemsPlayground
         public static ItemTypesEnum[] GetTwoHandedTypes(this ItemTypesEnum _enum) => [ItemTypesEnum.ArcoDosManos, ItemTypesEnum.ArmaDosManos, ItemTypesEnum.BastonDosManos, ItemTypesEnum.EspadaDosManos, ItemTypesEnum.HachaDosManos, ItemTypesEnum.MartilloDosManos, ItemTypesEnum.PalaDosManos];
         public static ItemTypesEnum[] GetSecondHandType(this ItemTypesEnum _enum) => [];
 
-        public static List<Item> Filter(this List<Item> items, int min, int max, ItemTypesEnum[] type, ItemRarity[] quality = null, Dictionary<StatsEnum, double> effects = null, List<StatsEnum> bannedStats = null, int[] excludedIds = null)
+        public static List<Item> Filter(this List<Item> items, int min, int max, ItemTypesEnum[] type = null, ItemRarity[] quality = null, Dictionary<StatsEnum, double> effects = null, List<StatsEnum> bannedStats = null, int[] excludedIds = null)
         {
             var result = items.Where(x =>
             (excludedIds == null || !excludedIds.Contains(x.Definition.Item.Id))
             && x.Definition.Item.Level >= min
             && x.Definition.Item.Level <= max
-            && type.Contains(x.Definition.Item.BaseParameters.ItemTypeEnum)
+            && (type == null || type.Contains(x.Definition.Item.BaseParameters.ItemTypeEnum))
             && (quality == null || quality.ToList().Contains((ItemRarity)x.Definition.Item.BaseParameters.Rarity))
             && (effects == null || x.CompareItem(effects))
             && (bannedStats == null || x.CompareItem(bannedStats))).ToList();
@@ -95,13 +95,13 @@ namespace WakfuItemsPlayground
             return result;
         }
 
-        public static KeyValuePair<Item, StatsCollection> SetStatsCollection(this Item item, bool applyElecon = false, bool applyAlternance = false)
+        public static KeyValuePair<Item, StatsCollection> SetStatsCollection(this Item item, bool applyElecon = false, bool isHupper = false, bool applyAlternance = false)
         {
-            item.Definition.StatsCollection = item.GetStats(applyElecon, applyAlternance);
+            item.Definition.StatsCollection = item.GetStats(applyElecon, applyAlternance, isHupper);
             return new KeyValuePair<Item, StatsCollection>(item, item.Definition.StatsCollection);
         }
 
-        static StatsCollection GetStats(this Item item, bool applyElecon = false, bool applyAlternance = false)
+        static StatsCollection GetStats(this Item item, bool applyElecon = false, bool applyAlternance = false, bool isHupper = false)
         {
             StatsCollection stats = new StatsCollection();
             var dictionaryAdd = new Dictionary<int, StatsEnum[]>()
@@ -190,8 +190,13 @@ namespace WakfuItemsPlayground
                         var elemental = new StatsEnum[] { StatsEnum.AIR_DOMAIN, StatsEnum.EARTH_DOMAIN, StatsEnum.FIRE_DOMAIN, StatsEnum.WATER_DOMAIN }.Contains(stat);
                         if (applyElecon && elemental)
                             value *= 1.2;
+
+                        if (isHupper && elemental)
+                            value *= 1.2;
+
                         if (applyAlternance && elemental)
                             value *= 1.2;
+
                             
                         stats.Add(stat, value);
                     }
