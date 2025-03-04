@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wakfuCalculatorStats", "wakfuCalculatorStats\wakfuCalculatorStats.csproj", "{F24635FF-1B15-4504-9DDC-B9D994F51CBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{2A243928-68F2-495E-89B7-CDF05EDC8880}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WakfuDamageCalculator", "WakfuDamageCalculator\WakfuDamageCalculator.csproj", "{7573C071-88AF-42EA-AD39-2E33680F6FC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrapperZenith", "ScrapperZenith\ScrapperZenith.csproj", "{894929FE-D8A0-44AD-A05E-BB0961ED3C17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DownloaderVersions", "DownloaderVersions\DownloaderVersions.csproj", "{03BA63FA-4BDD-4D79-A30D-B39B8CE32D6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WakfuItemsPlayground", "WakfuItemsPlayground\WakfuItemsPlayground.csproj", "{E30BD8F6-903B-41E9-A39C-2E4128025BE7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F24635FF-1B15-4504-9DDC-B9D994F51CBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F24635FF-1B15-4504-9DDC-B9D994F51CBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F24635FF-1B15-4504-9DDC-B9D994F51CBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F24635FF-1B15-4504-9DDC-B9D994F51CBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A243928-68F2-495E-89B7-CDF05EDC8880}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A243928-68F2-495E-89B7-CDF05EDC8880}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A243928-68F2-495E-89B7-CDF05EDC8880}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A243928-68F2-495E-89B7-CDF05EDC8880}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7573C071-88AF-42EA-AD39-2E33680F6FC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7573C071-88AF-42EA-AD39-2E33680F6FC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7573C071-88AF-42EA-AD39-2E33680F6FC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7573C071-88AF-42EA-AD39-2E33680F6FC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{894929FE-D8A0-44AD-A05E-BB0961ED3C17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{894929FE-D8A0-44AD-A05E-BB0961ED3C17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{894929FE-D8A0-44AD-A05E-BB0961ED3C17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{894929FE-D8A0-44AD-A05E-BB0961ED3C17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03BA63FA-4BDD-4D79-A30D-B39B8CE32D6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03BA63FA-4BDD-4D79-A30D-B39B8CE32D6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03BA63FA-4BDD-4D79-A30D-B39B8CE32D6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03BA63FA-4BDD-4D79-A30D-B39B8CE32D6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E30BD8F6-903B-41E9-A39C-2E4128025BE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E30BD8F6-903B-41E9-A39C-2E4128025BE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E30BD8F6-903B-41E9-A39C-2E4128025BE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E30BD8F6-903B-41E9-A39C-2E4128025BE7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

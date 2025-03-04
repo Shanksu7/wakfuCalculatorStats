@@ -1,0 +1,51 @@
+﻿namespace Domain.Enums
+{
+    [Flags]
+    public enum StatsEnum
+    {
+        HP = 0,
+        AP = 1,
+        MP,
+        WP,
+        WATER_DOMAIN,
+        EARTH_DOMAIN,
+        AIR_DOMAIN,
+        FIRE_DOMAIN,
+        WATER_RESIST,
+        EARTH_RESIST,
+        AIR_RESIST,
+        FIRE_RESIST,
+        INFLICTED_DAMAGE,
+        INFLICTED_DAMAGE_SIDE,
+        INFLICTED_DAMAGE_REAR,
+        INFLICTED_DAMAGE_MELE,
+        INFLICTED_DAMAGE_DIST,
+        INFLICTED_DAMAGE_BERSERKER,
+        CRIT_HIT,
+        INI,
+        DODGE,
+        WISDOM,
+        CONTROL,
+        FINAL_HEAL,
+        BLOCK,
+        RANGE,
+        TACKLE,
+        PP,
+        WILL,
+        CRIT_DOMAIN,
+        REAR_DOMAIN,
+        MELE_DOMAIN,
+        DISTANCE_DOMAIN,
+        HEAL_DOMAIN,
+        BERSERKER_DOMAIN,
+        CRIT_RESISTANCE,
+        REAR_RESISTANCE,
+        GIVEN_ARMOR,
+        INDIRECT_DAMAGE,
+        RECEIVED_ARMOR,
+        GATHERING_BONUS,
+        KSION_RING_BONUS,
+
+        NULL
+    }
+}
