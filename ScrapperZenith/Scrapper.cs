@@ -20,12 +20,12 @@ namespace ScrapperZenith
         {
 
             using (driver = UndetectedChromeDriver.Create(driverExecutablePath: await new ChromeDriverInstaller().Auto(force: true), headless: true))
-            try
-            {
-                var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                var options = new ChromeOptions();
-                options.AddArguments(new string[]
+                try
                 {
+                    var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                    var options = new ChromeOptions();
+                    options.AddArguments(new string[]
+                    {
        "--headless=new",
         "--whitelisted-ips=190.143.44.188",
         "--disable-gpu",
@@ -33,21 +33,21 @@ namespace ScrapperZenith
         "--disable-dev-shm-usage",
         "--disable-extensions",
         "disable-infobars"
-            });
+                });
 
-                await GetZenithData("https://zenithwakfu.com/builder/6e185");
-                Console.ReadKey();
-                driver.Quit();
-            }
-            catch (Exception ex)
-            {
+                    await GetZenithData("https://zenithwakfu.com/builder/6e185");
+                    Console.ReadKey();
+                    driver.Quit();
+                }
+                catch (Exception ex)
+                {
                     Console.WriteLine(ex);
-            }
-            finally
-            {
-                driver?.Quit();
-                driver?.Dispose();
-            }
+                }
+                finally
+                {
+                    driver?.Quit();
+                    driver?.Dispose();
+                }
         }
 
 
@@ -117,7 +117,7 @@ namespace ScrapperZenith
                 var beltSubli = parentNode.ChildNodes[8].ChildNodes[1].ChildNodes[0].ChildNodes[1].InnerText.GetStats(title);
                 var wep = parentNode.ChildNodes[9].ChildNodes[1].ChildNodes[0].ChildNodes[1].InnerText.GetStats(title);
                 Console.WriteLine("*****************************************************");
-                var subliStats = helmSubli+necklaceSubli+armorSubli+ring1+ring2+bootsSubli+capeSubli+shouldersSubli+beltSubli+wep;
+                var subliStats = helmSubli + necklaceSubli + armorSubli + ring1 + ring2 + bootsSubli + capeSubli + shouldersSubli + beltSubli + wep;
 
                 var epic = "/html/body/div[1]/div/div/div/div[3]/div[2]/div[5]/div/div[2]/div[2]/div[11]/div[1]/div/div[2]/div/div\r\n".Get();
                 var relic = "/html/body/div[1]/div/div/div/div[3]/div[2]/div[5]/div/div[2]/div[2]/div[11]/div[2]/div/div[2]/div/div\r\n".Get();
@@ -190,7 +190,7 @@ namespace ScrapperZenith
             {
                 HtmlDocument doc = new HtmlDocument();
                 doc.LoadHtml(source);
-               
+
             }
             catch (Exception ex)
             {

@@ -2,14 +2,6 @@
 using Domain.Models.Stats;
 using Domain.Models.Stats.Combat;
 using Domain.Models.WAKFUAPI;
-using Domain.Models.WAKFUAPI.Parsed;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Runtime.ExceptionServices;
-using System.Text;
-using System.Threading.Tasks;
 using WakfuItemsPlayground.Enums;
 
 namespace WakfuItemsPlayground
@@ -18,7 +10,7 @@ namespace WakfuItemsPlayground
     {
         public static ItemTypesEnum[] GetOneHandTypes(this ItemTypesEnum _enum) => [ItemTypesEnum.AgujaUnaMano, ItemTypesEnum.ArmaUnaMano, ItemTypesEnum.BastonUnaMano, ItemTypesEnum.CartaUnaMano, ItemTypesEnum.EspadaUnaMano, ItemTypesEnum.VaritaUnaMano];
         public static ItemTypesEnum[] GetTwoHandedTypes(this ItemTypesEnum _enum) => [ItemTypesEnum.ArcoDosManos, ItemTypesEnum.ArmaDosManos, ItemTypesEnum.BastonDosManos, ItemTypesEnum.EspadaDosManos, ItemTypesEnum.HachaDosManos, ItemTypesEnum.MartilloDosManos, ItemTypesEnum.PalaDosManos];
-        public static ItemTypesEnum[] GetSecondHandType(this ItemTypesEnum _enum) => [ItemTypesEnum.SegundaMano, ItemTypesEnum.DagaSegundaMano, ItemTypesEnum.EscudoSegundaMano];
+        public static ItemTypesEnum[] GetSecondHandType(this ItemTypesEnum _enum) => [ItemTypesEnum.SegundaMano, ItemTypesEnum.DagaSegundaMano];
 
         public static List<Item> Filter(this List<Item> items, int min, int max, ItemTypesEnum[] type = null, ItemRarity[] quality = null, Dictionary<StatsEnum, double> effects = null, List<StatsEnum> bannedStats = null, int[] excludedIds = null)
         {
@@ -26,7 +18,7 @@ namespace WakfuItemsPlayground
             (excludedIds == null || !excludedIds.Contains(x.Definition.Item.Id))
             && x.Definition.Item.Level >= min
             && x.Definition.Item.Level <= max
-            && (type == null || type.Contains(x.Definition.Item.BaseParameters.ItemTypeEnum))
+            && (type == null || type.Contains(x.Definition.Item.BaseParameters.ItemType.ItemTypeEnum))
             && (quality == null || quality.ToList().Contains((ItemRarity)x.Definition.Item.BaseParameters.Rarity))
             && (effects == null || x.CompareItem(effects))
             && (bannedStats == null || x.CompareItem(bannedStats))).ToList();
@@ -36,9 +28,11 @@ namespace WakfuItemsPlayground
             return result;
         }
 
-        public static bool CompareItem(this Item item, Dictionary<StatsEnum, double> dict)
+        public static Item Get(this List<Item> items, int id) => items.FirstOrDefault(x => x.Definition.Item.Id == id);
+
+        static bool CompareItem(this Item item, Dictionary<StatsEnum, double> dict)
         {
-            if(item.Definition.Item.Id == 25664)
+            if (item.Definition.Item.Id == 25664)
             {
 
             }
@@ -54,7 +48,7 @@ namespace WakfuItemsPlayground
             return true;
         }
 
-        public static bool CompareItem(this Item item, List<StatsEnum> stats)
+        static bool CompareItem(this Item item, List<StatsEnum> stats)
         {
             foreach (var stat in stats)
             {
@@ -87,10 +81,10 @@ namespace WakfuItemsPlayground
         public static Dictionary<Item, StatsCollection> SetStatsCollection(this List<Item> items)
         {
             var result = new Dictionary<Item, StatsCollection>();
-            foreach(var item in items)
+            foreach (var item in items)
             {
                 var (k, v) = item.SetStatsCollection();
-                result.Add(k,v);
+                result.Add(k, v);
             }
             return result;
         }
@@ -178,7 +172,7 @@ namespace WakfuItemsPlayground
 
             foreach (var effect in item.Definition.EquipEffectsParsed)
             {
-                if(item.Definition.Item.Id == 25614)
+                if (item.Definition.Item.Id == 25614)
                 {
 
                 }
@@ -197,7 +191,7 @@ namespace WakfuItemsPlayground
                         if (applyAlternance && elemental)
                             value *= 1.2;
 
-                            
+
                         stats.Add(stat, value);
                     }
                     continue;

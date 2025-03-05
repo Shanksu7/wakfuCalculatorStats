@@ -1,6 +1,4 @@
-﻿using static System.Formats.Asn1.AsnWriter;
-
-namespace Domain.Models.Stats.Domains
+﻿namespace Domain.Models.Stats.Domains
 {
     public class ResistanceStats(double water, double eart, double air, double fire) : DomainBase(water, eart, air, fire)
     {
@@ -11,7 +9,7 @@ namespace Domain.Models.Stats.Domains
 
         double GetPercentage(double score)
         {
-            return (1 - Math.Pow(0.8, score / 100.0))*100;
+            return (1 - Math.Pow(0.8, score / 100.0)) * 100;
         }
     }
 }

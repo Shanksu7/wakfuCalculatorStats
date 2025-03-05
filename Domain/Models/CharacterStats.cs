@@ -1,9 +1,4 @@
-﻿
-using Domain.Enums;
-using Domain.Models.Stats;
-using Domain.Models.Stats.Combat;
-using Domain.Models.Stats.Domains;
-using Domain.Models.Stats.Secondary;
+﻿using Domain.Models.Stats;
 
 namespace Domain.Models
 {

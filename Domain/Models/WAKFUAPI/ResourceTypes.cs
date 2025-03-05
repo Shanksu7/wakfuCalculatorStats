@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Models.WAKFUAPI
+﻿namespace Domain.Models.WAKFUAPI
 {
-   public class ResourceTypesDefinition
+    public class ResourceTypesDefinition
     {
         public int Id { get; set; }
         public bool AffectWakfu { get; set; }

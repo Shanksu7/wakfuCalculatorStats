@@ -1,18 +1,9 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Models.WAKFUAPI
+﻿namespace Domain.Models.WAKFUAPI
 {
-    using System;
-    using System.Collections.Generic;
     using Domain.Models.Stats;
     using Domain.Models.WAKFUAPI.Parsed;
     using Newtonsoft.Json;
-    using WakfuItemsPlayground.Enums;
+    using System.Collections.Generic;
 
     public class Item
     {
@@ -99,7 +90,7 @@ namespace Domain.Models.WAKFUAPI
 
         [JsonProperty("maximumShardSlotNumber")]
         public int MaximumShardSlotNumber { get; set; }
-        public ItemTypesEnum ItemTypeEnum { get; set; }
+        public EquipmentItemTypes? ItemType { get; set; }
     }
 
     public class UseParameters

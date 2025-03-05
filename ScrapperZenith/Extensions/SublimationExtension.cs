@@ -1,10 +1,5 @@
 ﻿using Domain.Enums;
 using Domain.Models.Stats;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ScrapperZenith.Extensions
 {
@@ -14,8 +9,8 @@ namespace ScrapperZenith.Extensions
         {
             if (string.IsNullOrEmpty(sublimationName)) return new StatsCollection();
             var split = sublimationName.Split(' ');
-            var lvl = GetLvL(split[split.Count()-1]);
-            var name = build + " | " + string.Join(' ', split.Take(split.Count()-1).ToArray());
+            var lvl = GetLvL(split[split.Count() - 1]);
+            var name = build + " | " + string.Join(' ', split.Take(split.Count() - 1).ToArray());
             var stats = new StatsCollection();
             var effectName = string.Join(' ', split.Take(split.Count() - 1).ToArray());
             switch (effectName.ToLower())
@@ -64,6 +59,6 @@ namespace ScrapperZenith.Extensions
             return stats;
 
             double GetLvL(string lvl) => lvl switch { "I" => 1, "II" => 2, "III" => 3, _ => throw new Exception("CANNOT identify lvl of sublimation") };
-        }        
+        }
     }
 }

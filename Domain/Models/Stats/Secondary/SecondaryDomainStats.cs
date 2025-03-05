@@ -1,9 +1,4 @@
 ﻿using Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Models.Stats.Secondary
 {
@@ -15,10 +10,10 @@ namespace Domain.Models.Stats.Secondary
         public double Distance { get; set; }
         public double Heal { get; set; }
         public double Berserker { get; set; }
-        public double GetSubDomain(SideDamage sideDamage, bool isCrit,bool isDistance, bool isBerserker, bool isHealing)
+        public double GetSubDomain(SideDamage sideDamage, bool isCrit, bool isDistance, bool isBerserker, bool isHealing)
         {
             var domainResult = 0.0;
-            if(isHealing)
+            if (isHealing)
             {
                 domainResult += Heal;
                 domainResult += isDistance ? Distance : Mele;

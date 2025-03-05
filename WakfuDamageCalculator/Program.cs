@@ -1,11 +1,6 @@
 ﻿using Domain.Enums;
-using Domain.Models;
 using Domain.Models.Stats;
 using Domain.Models.Stats.Combat;
-using Domain.Models.Stats.Domains;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using ScrapperZenith;
 
 
 //await Scrapper.Get();
@@ -53,7 +48,7 @@ while (true)
     CalculateDamage dmgNoCrit = new(72, DomainType.AIR, mrpunchy, SideDamage.FRONT, false, RangeDamageEnum.DIST, false, false, false, 0);
     CalculateDamage dmgCrit = new(90, DomainType.AIR, mrpunchy, SideDamage.FRONT, true, RangeDamageEnum.DIST, false, false, false, 0);
     var noCrit = sadi.CalculateDamage(dmgNoCrit);
-   var crit = sadi.CalculateDamage(dmgCrit);
+    var crit = sadi.CalculateDamage(dmgCrit);
 
     //var poisonNoCrit = sadi.CalculateDamage(28, DomainType.AIR, puch, SideDamage.FRONT, false, true, false, false, true);//248
     //var poisonCrit = sadi.CalculateDamage(35, DomainType.AIR, puch, SideDamage.FRONT, false, true, false, false, true);//311
@@ -112,7 +107,7 @@ StatsCollection Xel()
 {
 
     var result = new StatsCollection();
-    result[StatsEnum.INFLICTED_DAMAGE] = 167+12;
+    result[StatsEnum.INFLICTED_DAMAGE] = 167 + 12;
     result[StatsEnum.CRIT_HIT] = 49;
     //result[StatsEnum.INI] = 89;
     //result[StatsEnum.DODGE] = 559;
@@ -144,7 +139,7 @@ StatsCollection Xel()
 StatsCollection Hupper()
 {
     var s = new StatsCollection();
-    s[StatsEnum.INFLICTED_DAMAGE] = 87.0+ 20.0 -10.0 + 12.0;
+    s[StatsEnum.INFLICTED_DAMAGE] = 87.0 + 20.0 - 10.0 + 12.0;
     s[StatsEnum.EARTH_DOMAIN] = 7071.0;
     s[StatsEnum.AIR_DOMAIN] = 1056;
     return s;

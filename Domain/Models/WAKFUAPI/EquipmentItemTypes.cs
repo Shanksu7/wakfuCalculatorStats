@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using WakfuItemsPlayground.Enums;
 
 namespace Domain.Models.WAKFUAPI
 {
@@ -50,5 +46,6 @@ namespace Domain.Models.WAKFUAPI
 
         [JsonProperty("title")]
         public EquipmentTitle Title { get; set; }
+        public ItemTypesEnum ItemTypeEnum { get; set; }
     }
 }

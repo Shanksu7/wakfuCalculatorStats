@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.IO;
 
 class Program
 {
@@ -36,8 +33,8 @@ class Program
         }
         Console.WriteLine("Version: " + currentVersion);
 
-        string outputDirectory = "WakfuJsonFiles_"+currentVersion;
-        if(!Directory.Exists(outputDirectory))
+        string outputDirectory = "WakfuJsonFiles_" + currentVersion;
+        if (!Directory.Exists(outputDirectory))
             Directory.CreateDirectory(outputDirectory);
 
         foreach (var type in types)

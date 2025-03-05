@@ -1,6 +1,5 @@
 ﻿using Domain.Enums;
 using Domain.Models.Stats.Combat;
-using System.Numerics;
 
 namespace Domain.Models.Stats
 {
@@ -13,7 +12,7 @@ namespace Domain.Models.Stats
 
         Dictionary<StatsEnum, double> Stats { get; set; }
 
-        public double this[StatsEnum stat] 
+        public double this[StatsEnum stat]
         {
             get
             {
@@ -33,7 +32,7 @@ namespace Domain.Models.Stats
 
         public double Add(StatsEnum stat, double value, string description = null)
         {
-            if(value != 0 && description is not null)
+            if (value != 0 && description is not null)
             {
                 Console.WriteLine($"Added {description}: {value} : [{stat.ToString()}]");
             }
@@ -48,7 +47,7 @@ namespace Domain.Models.Stats
             var result = new StatsCollection();
             foreach (var stat in values)
             {
-                if (stats[stat] == 0 && stats2[stat] == 0) 
+                if (stats[stat] == 0 && stats2[stat] == 0)
                     continue;
                 result[stat] = stats[stat] + stats2[stat];
             }
@@ -62,8 +61,8 @@ namespace Domain.Models.Stats
             var resistanceBase = 0.0;
             var resistancePercentage = 0.0;
 
-            if (addedStats != null) 
-                foreach(var (stat, value) in addedStats.Stats) Add(stat, value);
+            if (addedStats != null)
+                foreach (var (stat, value) in addedStats.Stats) Add(stat, value);
 
             switch (c.DomainType)
             {
@@ -93,7 +92,7 @@ namespace Domain.Models.Stats
             var a1 = c.BaseDamage * (applicableDomain / 100.0);
             var damageInflictedAugment = GetInflictedDamage(c);
             var a2 = (a1 + c.BaseDamage) * damageInflictedAugment;
-            var result = a2 * ((100.0 - (c.IsHealing ? 0: resistancePercentage)) / 100.0);
+            var result = a2 * ((100.0 - (c.IsHealing ? 0 : resistancePercentage)) / 100.0);
 
 
             if (addedStats != null)
@@ -118,12 +117,12 @@ namespace Domain.Models.Stats
                 domainResult += GetRangeBonusDomain(c.RangeDamageType);
                 if (c.IsCrit) domainResult += this[StatsEnum.CRIT_DOMAIN];
                 return domainResult;
-            }   
+            }
 
             if (c.IsCrit) domainResult += this[StatsEnum.CRIT_DOMAIN];
 
             if (c.Side == SideDamage.REAR)
-                if(!c.IsIndirect)
+                if (!c.IsIndirect)
                     domainResult += this[StatsEnum.REAR_DOMAIN];
 
             if (c.IsBerserker) domainResult += this[StatsEnum.BERSERKER_DOMAIN];
@@ -155,7 +154,7 @@ namespace Domain.Models.Stats
                 if (c.RangeDamageType == RangeDamageEnum.MELE) result += this[StatsEnum.INFLICTED_DAMAGE_MELE];
                 if (c.RangeDamageType == RangeDamageEnum.HIGHEST) result += Math.Max(this[StatsEnum.INFLICTED_DAMAGE_DIST], this[StatsEnum.INFLICTED_DAMAGE_MELE]);
             }
-            
+
 
             return (result / 100.0) + 1.0;
         }
