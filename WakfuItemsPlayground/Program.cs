@@ -85,37 +85,39 @@ internal class Program
 
         //aditional Hidden stats
         StatsCollection stats = new StatsCollection();
-        stats[StatsEnum.INFLICTED_DAMAGE] += 20;//brutalidad
-        stats[StatsEnum.INFLICTED_DAMAGE_MELE] += 20; //brutalidad
+        //stats[StatsEnum.INFLICTED_DAMAGE] += 20;//brutalidad
+        //stats[StatsEnum.INFLICTED_DAMAGE_MELE] += 20; //brutalidad
 
-        stats[StatsEnum.INFLICTED_DAMAGE] += 20; // borrasca
-        stats[StatsEnum.INFLICTED_DAMAGE] += 15; // hinchable
-        stats[StatsEnum.INFLICTED_DAMAGE] += 20; //chute
-        stats[StatsEnum.INFLICTED_DAMAGE] += 20; //ani
-        stats[StatsEnum.INFLICTED_DAMAGE_MELE] += 40; //baston
+        //stats[StatsEnum.INFLICTED_DAMAGE] += 20; // borrasca
+        //stats[StatsEnum.INFLICTED_DAMAGE] += 15; // hinchable
+        //stats[StatsEnum.INFLICTED_DAMAGE] += 20; //chute
+        //stats[StatsEnum.INFLICTED_DAMAGE] += 20; //ani
+        //stats[StatsEnum.INFLICTED_DAMAGE_MELE] += 40; //baston
 
 
         //Spell conditions
         CalculateDamage calculateReq = new CalculateDamage(
-            baseDamage: 62,
+            baseDamage: 309,
             type: DomainType.FIRE,
             resistance: new Domain.Models.Stats.StatsCollection(),
             sideDamage: SideDamage.FRONT, 
-            isCrit: false,
-            rangeDamageEnum: RangeDamageEnum.HIGHEST,
+            isCrit: true,
+            rangeDamageEnum: RangeDamageEnum.DIST,
             isBerserker: false, 
             isHealing: false, 
-            isIndirect: false, 0);
+            isIndirect: true, 0);
 
         //filters for gear
         var minLevel = 1;
-        var maxLevel = 155;
+        var maxLevel = 50;
         var bannedGear = new int[] 
         {
             31344, 31381,31354,31353, 31360,31359//talkasha drops
             ,30684
             ,26750//coraza apaciguador 155
             ,31235,31234
+            ,29284//la vida 230 -25res
+            ,30913
 
         };
         var bannedStats = new List<StatsEnum>() 
@@ -124,32 +126,35 @@ internal class Program
             //StatsEnum.BERSERKER_DOMAIN,
             //StatsEnum.DISTANCE_DOMAIN,
             //StatsEnum.MELE_DOMAIN,
+            //StatsEnum.RANGE,
             //StatsEnum.CRIT_DOMAIN, 
             //StatsEnum.HEAL_DOMAIN
         };
-        ItemRarity[] qualities =  new ItemRarity[] {  ItemRarity.LEGENDARY, ItemRarity.MYTHIC, ItemRarity.SOUVENIR };
+        ItemRarity[] qualities =  new ItemRarity[] {  ItemRarity.LEGENDARY, ItemRarity.MYTHIC };
         var botas = items.Filter(minLevel, maxLevel, [ItemTypesEnum.Botas], qualities, new Dictionary<StatsEnum, double>()
         {
         }, bannedStats, bannedGear);
         var casco = items.Filter(minLevel, maxLevel, [ItemTypesEnum.Casco], qualities, new Dictionary<StatsEnum, double>()
         {
-            //{StatsEnum.RANGE, 1}
+            {StatsEnum.RANGE, 1}
         }, bannedStats, bannedGear);
         var amuletos = items.Filter(minLevel, maxLevel, [ItemTypesEnum.Amuleto], qualities, new Dictionary<StatsEnum, double>()
         {
+            //{StatsEnum.RANGE, 1 },
+            
             {StatsEnum.CRIT_HIT, 1 },
             { StatsEnum.AP, 1 },
         }, bannedStats, bannedGear);
         var capa = items.Filter(minLevel, maxLevel, [ItemTypesEnum.Capa], qualities, new Dictionary<StatsEnum, double>() 
         {
-            {StatsEnum.CRIT_HIT, 1 },
+            //{StatsEnum.CRIT_HIT, 1 },
             { StatsEnum.AP, 1 },
         }, bannedStats, bannedGear);
         var arma_1_mano = items.Filter(minLevel, maxLevel, ItemTypesEnum.Null_751.GetOneHandTypes(), qualities, new Dictionary<StatsEnum, double>()
         {
-          // {StatsEnum.CRIT_HIT, 1 },
-
-            {StatsEnum.AP, 1 },
+            //{StatsEnum.CRIT_HIT, 1 },
+            
+           {StatsEnum.AP, 1 },
         }, bannedStats, bannedGear);
 
         var arma_2_manos = items.Filter(minLevel, maxLevel, ItemTypesEnum.Null_751.GetTwoHandedTypes(), qualities, new Dictionary<StatsEnum, double>()
@@ -157,28 +162,33 @@ internal class Program
            { StatsEnum.AP, 1 },
         }, bannedStats, bannedGear);
 
+        var arma_2da_mano = items.Filter(minLevel, maxLevel, ItemTypesEnum.Null_751.GetSecondHandType(), qualities, new Dictionary<StatsEnum, double>()
+        {
+
+        }, bannedStats, bannedGear);
 
         var coraza = items.Filter(minLevel, maxLevel, [ItemTypesEnum.Coraza], qualities, new Dictionary<StatsEnum, double>()
         {
             //{ StatsEnum.BERSERKER_DOMAIN, 0 },
             //{ StatsEnum.CRIT_HIT, 0 },
-            { StatsEnum.AP, 1 },
+            //{ StatsEnum.AP, 1 },
         }, bannedStats, bannedGear);
         var hombreras = items.Filter(minLevel, maxLevel, [ItemTypesEnum.Hombreras], qualities, new Dictionary<StatsEnum, double>()
         {
-            {StatsEnum.CRIT_HIT, 1 }
+            //{StatsEnum.CRIT_HIT, 1 }
+       //     {StatsEnum.RANGE, 0 }
         }, bannedStats, bannedGear);
         var cinturon = items.Filter(minLevel, maxLevel, [ItemTypesEnum.Cinturon], qualities, new Dictionary<StatsEnum, double>()
         {
-            {StatsEnum.CRIT_HIT, 1 }
+            //{StatsEnum.CRIT_HIT, 1 }
         }, bannedStats, bannedGear);        
-        var emblema = items.Filter(minLevel, maxLevel, [ItemTypesEnum.Emblema], qualities, new Dictionary<StatsEnum, double>()
+        var emblema = items.Filter(minLevel, maxLevel, [ItemTypesEnum.Emblema], [ItemRarity.LEGENDARY, ItemRarity.MYTHIC], new Dictionary<StatsEnum, double>()
         {
-            {StatsEnum.CRIT_HIT, 1 }
+            //{StatsEnum.CRIT_HIT, 1 }
         }, bannedStats, bannedGear);
         var rings = items.Filter(minLevel, maxLevel, [ItemTypesEnum.Anillo], qualities, new Dictionary<StatsEnum, double>()
         {
-            {StatsEnum.CRIT_HIT, 0 }
+           // {StatsEnum.CRIT_HIT, 0 }
         }, bannedStats, bannedGear);
 
         var epics = items.Filter(minLevel, maxLevel, null, [ItemRarity.EPIC], new Dictionary<StatsEnum, double>()
@@ -205,6 +215,7 @@ internal class Program
         var anillos_dmg = rings.CalculateDamage(calculateReq, stats);
         var anillo = items.FirstOrDefault(x => x.Definition.Item.Id == 9723).CalculateDamage(calculateReq, stats);
         var anillo2 = items.FirstOrDefault(x => x.Definition.Item.Id == 27281).CalculateDamage(calculateReq, stats);
+        var arma_2da_dmg = arma_2da_mano.CalculateDamage(calculateReq, stats);
         var epics_dmg = epics.CalculateDamage(calculateReq, stats);
         var relic_dmg = relics.CalculateDamage(calculateReq, stats);
         CharacterEquipments equip = new CharacterEquipments();
@@ -227,7 +238,7 @@ internal class Program
         //equip.Add(anillo.Item1, anillo.Item2);
         //equip.Add(anillo2.Item1, anillo2.Item2);
 
-        //openUrls(equip.Urls.Split('\n', StringSplitOptions.RemoveEmptyEntries));
+        openUrls(equip.Urls.Split('\n', StringSplitOptions.RemoveEmptyEntries));
         //var act = actions.Where(x => x.Description != null && x.Description.Spanish.Contains("Dominio"));
     }
 

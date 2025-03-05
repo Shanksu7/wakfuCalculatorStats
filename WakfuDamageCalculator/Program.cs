@@ -1,6 +1,7 @@
 ﻿using Domain.Enums;
 using Domain.Models;
 using Domain.Models.Stats;
+using Domain.Models.Stats.Combat;
 using Domain.Models.Stats.Domains;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -49,9 +50,10 @@ while (true)
 
     //var maldito_sin_elecon = sadi_noelecon.CalculateDamage(76, DomainType.AIR, mrpunchy, SideDamage.FRONT, false, true, false, false, true, 80.0);  
     //var toxina_sin_elecon = sadi_noelecon.CalculateDamage(490, DomainType.AIR, mrpunchy, SideDamage.FRONT, false, true, false, false, true, 80.0);
-
-    var noCrit = sadi.CalculateDamage(72, DomainType.AIR, mrpunchy, SideDamage.FRONT, false, true, false, false, true);
-   var crit = sadi.CalculateDamage(90, DomainType.AIR, mrpunchy, SideDamage.FRONT, true, true, false, false, true);
+    CalculateDamage dmgNoCrit = new(72, DomainType.AIR, mrpunchy, SideDamage.FRONT, false, RangeDamageEnum.DIST, false, false, false, 0);
+    CalculateDamage dmgCrit = new(90, DomainType.AIR, mrpunchy, SideDamage.FRONT, true, RangeDamageEnum.DIST, false, false, false, 0);
+    var noCrit = sadi.CalculateDamage(dmgNoCrit);
+   var crit = sadi.CalculateDamage(dmgCrit);
 
     //var poisonNoCrit = sadi.CalculateDamage(28, DomainType.AIR, puch, SideDamage.FRONT, false, true, false, false, true);//248
     //var poisonCrit = sadi.CalculateDamage(35, DomainType.AIR, puch, SideDamage.FRONT, false, true, false, false, true);//311
