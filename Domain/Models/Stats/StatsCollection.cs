@@ -158,5 +158,9 @@ namespace Domain.Models.Stats
 
             return (result / 100.0) + 1.0;
         }
+        public override string ToString()
+        {
+            return $"{this[StatsEnum.AP]}/{this[StatsEnum.MP]}/{this[StatsEnum.WP]}/{this[StatsEnum.RANGE]}";
+        }
     }
 }

@@ -29,13 +29,36 @@ namespace Domain.Models
         List<string> OcupiedPositions = new List<string>();
         List<string> DisabledPositions = new List<string>();
 
+
+        public void AddRelicEpic(Dictionary<Item, (Item, double)> compared)
+        {
+            Dictionary<Item, double> result = new();
+            foreach (var x in compared)
+                result.Add(x.Key, 0);
+
+            var added = false;
+            foreach (var (key, _) in compared)
+            {
+                added = Add(key);
+                if (added) break;
+            }
+            if (!added) throw new Exception("a?");
+        }
+
         public void AddSingle(Dictionary<Item, double> dict)
         {
             if (dict.Any())
-                Add(dict.FirstOrDefault().Key);
+            {
+                foreach (var (item, _) in dict)
+                {
+                    var added = Add(dict.FirstOrDefault().Key);
+                    if (!added) continue;
+                    else break;
+                }
+            }
         }
 
-        public void Add(Item item)
+        public bool Add(Item item)
         {
             var itemType = item.Definition.Item.BaseParameters.ItemType;
             var itemRarity = item.Definition.Item.BaseParameters.Rarity;
@@ -50,14 +73,14 @@ namespace Domain.Models
 
             if (positions.TrueForAll(x => x.Item2 == true))
             {
-                return;
+                return false;
             }
 
             if ((ItemRarity)itemRarity == ItemRarity.EPIC)
-                if (Items.Count(x => (ItemRarity)x.Value.Definition.Item.BaseParameters.Rarity == ItemRarity.EPIC) > 0) return;
+                if (Items.Count(x => (ItemRarity)x.Value.Definition.Item.BaseParameters.Rarity == ItemRarity.EPIC) > 0) return false;
 
             if ((ItemRarity)itemRarity == ItemRarity.RELIC)
-                if (Items.Count(x => (ItemRarity)x.Value.Definition.Item.BaseParameters.Rarity == ItemRarity.RELIC) > 0) return;
+                if (Items.Count(x => (ItemRarity)x.Value.Definition.Item.BaseParameters.Rarity == ItemRarity.RELIC) > 0) return false;
 
             var added = false;
             foreach (var position in itemType.Definition.EquipmentPositions)
@@ -102,10 +125,11 @@ namespace Domain.Models
                     Console.WriteLine("Already present: " + itemType);
                 }
             }
+            return true;
         }
 
         public List<KeyValuePair<ItemTypesEnum, Item>> Items { get; set; } = new List<KeyValuePair<ItemTypesEnum, Item>>();
-        public StatsCollection Stats { get; internal set; } = new StatsCollection();
+        public StatsCollection Stats { get; set; } = new StatsCollection();
 
         public string Urls
         {

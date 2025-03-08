@@ -1,9 +1,11 @@
 ﻿namespace Domain.Models.WAKFUAPI
 {
+    using Domain.Enums;
     using Domain.Models.Stats;
     using Domain.Models.WAKFUAPI.Parsed;
     using Newtonsoft.Json;
     using System.Collections.Generic;
+    using WakfuItemsPlayground.Enums;
 
     public class Item
     {
@@ -29,6 +31,33 @@
 
                 text += string.Format(urlArmor, Definition.Item.Id, Title.Es.Replace(" ", "-")) + "\n";
                 return text;
+            }
+        }
+
+        public bool GiveExtra(StatsEnum stat, List<ItemTypesEnum> weaponTypes)
+        {
+            var apExtra = new List<ItemTypesEnum>() { ItemTypesEnum.Amuleto, ItemTypesEnum.Capa, ItemTypesEnum.Coraza };
+            var mpExtra = new List<ItemTypesEnum>() { ItemTypesEnum.Botas, ItemTypesEnum.Coraza };
+            apExtra.AddRange(weaponTypes);
+            switch (stat)
+            {
+                case StatsEnum.AP:
+                    {
+                        if (apExtra.Contains(Definition.Item.BaseParameters.ItemType.ItemTypeEnum))
+                            return Definition.StatsCollection[StatsEnum.AP] > 1;
+                        else
+                            return Definition.StatsCollection[StatsEnum.AP] > 0;
+                    }
+
+                case StatsEnum.MP:
+                    {
+                        if (apExtra.Contains(Definition.Item.BaseParameters.ItemType.ItemTypeEnum))
+                            return Definition.StatsCollection[StatsEnum.MP] > 1;
+                        else
+                            return Definition.StatsCollection[StatsEnum.MP] > 0;
+                    }
+                default:
+                    return true;
             }
         }
     }

@@ -89,13 +89,13 @@ namespace WakfuItemsPlayground
             return result;
         }
 
-        public static KeyValuePair<Item, StatsCollection> SetStatsCollection(this Item item, bool applyElecon = false, bool isHupper = false, bool applyAlternance = false)
+        public static KeyValuePair<Item, StatsCollection> SetStatsCollection(this Item item, bool applyElecon = false, bool isHupper = false, bool applyAlternance = false, bool anatomy = false)
         {
-            item.Definition.StatsCollection = item.GetStats(applyElecon, applyAlternance, isHupper);
+            item.Definition.StatsCollection = item.GetStats(applyElecon, applyAlternance, isHupper, anatomy);
             return new KeyValuePair<Item, StatsCollection>(item, item.Definition.StatsCollection);
         }
 
-        static StatsCollection GetStats(this Item item, bool applyElecon = false, bool applyAlternance = false, bool isHupper = false)
+        static StatsCollection GetStats(this Item item, bool applyElecon = false, bool applyAlternance = false, bool isHupper = false, bool anatomy = false)
         {
             StatsCollection stats = new StatsCollection();
             var dictionaryAdd = new Dictionary<int, StatsEnum[]>()
@@ -172,12 +172,13 @@ namespace WakfuItemsPlayground
 
             foreach (var effect in item.Definition.EquipEffectsParsed)
             {
-                if (item.Definition.Item.Id == 25614)
+                if (item.Definition.Item.Id == 31904)
                 {
 
                 }
                 if (dictionaryAdd.TryGetValue(effect.ActionId, out var effectsAdd))
                 {
+                    var valueAnatomy = 0.0;
                     foreach (var stat in effectsAdd)
                     {
                         var value = effect.Value;
@@ -191,9 +192,16 @@ namespace WakfuItemsPlayground
                         if (applyAlternance && elemental)
                             value *= 1.2;
 
+                        if (anatomy & elemental)
+                        {
+                            var half = value / 2;
+                            value = half;
+                            valueAnatomy = half * 1.3;
+                        }
 
                         stats.Add(stat, value);
                     }
+                    if (anatomy) stats.Add(StatsEnum.REAR_DOMAIN, valueAnatomy);
                     continue;
                 }
 
