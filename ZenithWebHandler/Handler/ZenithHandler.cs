@@ -1,7 +1,10 @@
-﻿using Domain.Models.WAKFUAPI;
+﻿using Domain.Enums;
+using Domain.Models.WAKFUAPI;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Web;
+using WakfuItemsPlayground.Enums;
 using ZenithWebHandler.Extensions;
 using ZenithWebHandler.Models;
 using ZenithWebHandler.Models.Responses;
@@ -39,15 +42,16 @@ namespace ZenithWebHandler.Handler
 
             queryParams["name"] = item.Title.Es;
             queryParams["rarity[]"] = item.Definition.Item.BaseParameters.Rarity.ToString();
-            queryParams["minLvl"] = item.Definition.Item.Level.ToString();
-            queryParams["maxLvl"] = item.Definition.Item.Level.ToString();
-            var _params = queryParams.ToString();
+            queryParams["minLvl"] = (item.Definition.Item.Level-1).ToString();
+            queryParams["maxLvl"] = item.Definition.Item.BaseParameters.ItemTypeId == 611 ? "50" : item.Definition.Item.Level.ToString();
+            //queryParams["type[]"] = item.Definition.Item.BaseParameters.ItemTypeId.ToString();
+            var _params = queryParams.ToString().Replace('+', ' ');
             var items = await client.GetItems(_params);
             var data = items.FirstOrDefault(x => x.IdEquipment.Value == item.Definition.Item.Id);
             if (data == null)
                 throw new Exception($"Cannot find item {item.ToString()}");
             Console.WriteLine("Fetched in Zenith: " + item.Title.Es);
-            return items.FirstOrDefault();
+            return data;
         }
 
         public static async Task<HttpStatusCode> Add(ItemZenith item, int idBuild)
@@ -59,6 +63,7 @@ namespace ZenithWebHandler.Handler
         }
 
         static HttpClient client => new HttpClient(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.All });
+
     }
 }
 

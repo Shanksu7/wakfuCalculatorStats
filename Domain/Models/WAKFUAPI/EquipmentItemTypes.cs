@@ -22,6 +22,8 @@ namespace Domain.Models.WAKFUAPI
 
         [JsonProperty("isVisibleInAnimation")]
         public bool IsVisibleInAnimation { get; set; }
+
+        public string EquipmentPositionsData => string.Join(',' , EquipmentPositions);
     }
 
     public class EquipmentTitle

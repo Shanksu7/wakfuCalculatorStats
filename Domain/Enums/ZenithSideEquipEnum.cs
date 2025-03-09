@@ -13,7 +13,8 @@
         BELT = 133,
         SECOND_HAND = 520,
         FIRST_HAND = 540,
-        EMBLEM = 646
-
+        EMBLEM = 646,
+        PET = 582,
+        MOUNT = 611
     }
 }

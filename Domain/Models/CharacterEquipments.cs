@@ -125,6 +125,8 @@ namespace Domain.Models
                     Console.WriteLine("Already present: " + itemType);
                 }
             }
+
+            Console.WriteLine($"Using: {item.ToString()}");
             return true;
         }
 

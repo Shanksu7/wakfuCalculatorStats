@@ -24,7 +24,16 @@ namespace WakfuItemsPlayground
             && (bannedStats == null || x.CompareItem(bannedStats))).ToList();
 
             //if (!result.Any()) throw new Exception($"NO ITEMS ON {string.Join(',', type)}");
-
+            if (type != null)
+                Console.WriteLine(string.Join(' ', type));
+            if(quality != null)
+                Console.WriteLine(string.Join(' ', quality));
+            if(effects != null)
+            {
+                foreach(var (effect, value) in effects)
+                    Console.WriteLine($"{effect.ToString()} : {value}");
+            }
+            Console.WriteLine();
             return result;
         }
 

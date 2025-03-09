@@ -19,7 +19,7 @@
         public Lang Description { get; set; }
         public override string ToString()
         {
-            return $"[{Definition.Item.Id}]" + $"[{Definition.Item.Level}]" + Title.Es;
+            return $"[{Definition.Item.Id}]" + $" [{Definition.Item.Level}] " + Title.Es;
         }
         public string Url
         {

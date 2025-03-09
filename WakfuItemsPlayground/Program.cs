@@ -110,8 +110,8 @@ internal class Program
             resistance: new Domain.Models.Stats.StatsCollection(),
             sideDamage: SideDamage.FRONT,
             isCrit: false,
-            rangeDamageEnum: RangeDamageEnum.HIGHEST,
-            isBerserker: true,
+            rangeDamageEnum: RangeDamageEnum.DIST,
+            isBerserker: false,
             isHealing: false,
             isIndirect: true, 0);
 
@@ -120,8 +120,16 @@ internal class Program
         var maxLevel = 2450;
         var bannedGear = new int[]
         {
-            31344, 31381,31354,31353, 31360,31359,31340,31339,31341,31395
-
+            //31344, 31381,31354,31353, 31360,31359,31340,31339,31341,31395,
+            //26497,26494,26495//espadas
+            //,29284,30147,31914
+            //,31963 //botañeras
+            //,29438//listo III
+            //,32088
+            //29120
+            29181,
+            29438
+            ,28322
         };
         var bannedStats = new List<StatsEnum>()
         {
@@ -133,37 +141,41 @@ internal class Program
             //StatsEnum.HEAL_DOMAIN
         };
 
-        //var requirements = new Dictionary<StatsEnum, double>()
-        //{
-        //    { StatsEnum.WP, 1 }
-        //};
+        var requirements = new Dictionary<StatsEnum, double>()
+        {
+            { StatsEnum.RANGE, 5 }
+        };
 
         ItemRarity[] qualities = new ItemRarity[] { ItemRarity.LEGENDARY, ItemRarity.SOUVENIR/*, ItemRarity.MYTHIC*/ };
         var botas = items.Filter(minLevel, maxLevel, [ItemTypesEnum.Botas], qualities, new Dictionary<StatsEnum, double>()
         {
             //{StatsEnum.AP, 1 }
             //{StatsEnum.CRIT_DOMAIN, 0 },
-            //{ StatsEnum.MP, 1 }
+            { StatsEnum.WP, 0 },
+            { StatsEnum.MP, 1 }
+            
+         //   {StatsEnum.RANGE, 1 }
         }, bannedStats, bannedGear);
         var casco = items.Filter(minLevel, maxLevel, [ItemTypesEnum.Casco], qualities, new Dictionary<StatsEnum, double>()
         {
-           {StatsEnum.RANGE, 1},
+       //    {StatsEnum.RANGE, 1},
            //{StatsEnum.CRIT_HIT, 1 }
         }, bannedStats, bannedGear);
         var amuletos = items.Filter(minLevel, maxLevel, [ItemTypesEnum.Amuleto], qualities, new Dictionary<StatsEnum, double>()
         {
-            {StatsEnum.RANGE, 1 },
-           {StatsEnum.CRIT_HIT, 1 },
-          //  { StatsEnum.AP, 1 },
+           // {StatsEnum.RANGE, 1 },
+           //{StatsEnum.CRIT_HIT, 1 },
+            { StatsEnum.AP, 1 },
         }, bannedStats, bannedGear);
         var capa = items.Filter(minLevel, maxLevel, [ItemTypesEnum.Capa], qualities, new Dictionary<StatsEnum, double>()
         {
-            {StatsEnum.CRIT_HIT, 1 },
+            //{StatsEnum.CRIT_HIT, 1 },
             { StatsEnum.AP, 1 },
         }, bannedStats, bannedGear);
         var arma_1_mano = items.Filter(minLevel, maxLevel, ItemTypesEnum.Null_751.GetOneHandTypes(), qualities, new Dictionary<StatsEnum, double>()
         {
-               { StatsEnum.RANGE, 1 },
+           // { StatsEnum.RANGE, 1 },
+           //{StatsEnum.CRIT_HIT, 1  },
            { StatsEnum.AP, 1 },
         }, bannedStats, bannedGear);
 
@@ -178,20 +190,22 @@ internal class Program
         var coraza = items.Filter(minLevel, maxLevel, [ItemTypesEnum.Coraza], qualities, new Dictionary<StatsEnum, double>()
         {
 
-            { StatsEnum.AP, 1 },
+            //{ StatsEnum.AP, 1 },
         }, bannedStats, bannedGear);
         var hombreras = items.Filter(minLevel, maxLevel, [ItemTypesEnum.Hombreras], qualities, new Dictionary<StatsEnum, double>()
         {
-            {StatsEnum.CRIT_HIT, 1 },
-              //  {StatsEnum.RANGE, 1 }
+            //{StatsEnum.CRIT_HIT, 1 },
+         //       {StatsEnum.RANGE, 1 },
+            //{StatsEnum.WP, 0 }
+
         }, bannedStats, bannedGear);
         var cinturon = items.Filter(minLevel, maxLevel, [ItemTypesEnum.Cinturon], qualities, new Dictionary<StatsEnum, double>()
         {
-               {StatsEnum.CRIT_HIT, 1 }
+               //{StatsEnum.CRIT_HIT, 1 }
         }, bannedStats, bannedGear);
         var emblema = items.Filter(minLevel, maxLevel, [ItemTypesEnum.Emblema], [ItemRarity.LEGENDARY, ItemRarity.MYTHIC], new Dictionary<StatsEnum, double>()
         {
-               {StatsEnum.CRIT_HIT, 0 }
+               //{StatsEnum.CRIT_HIT, 0 }
         }, bannedStats, bannedGear);
         var rings = items.Filter(minLevel, maxLevel, [ItemTypesEnum.Anillo], qualities, new Dictionary<StatsEnum, double>()
         {
@@ -199,14 +213,15 @@ internal class Program
 
         var epics = items.Filter(minLevel, maxLevel, null, [ItemRarity.EPIC], new Dictionary<StatsEnum, double>()
         {
-                    {StatsEnum.CRIT_HIT, 0 },
-            {StatsEnum.AP, 1 }
+            //{StatsEnum.CRIT_HIT, 0 },
+            //{StatsEnum.AP, 1 }
         }, bannedStats, bannedGear);
 
         var relics = items.Filter(minLevel, maxLevel, null, [ItemRarity.RELIC], new Dictionary<StatsEnum, double>()
         {
-             {StatsEnum.AP , 1},
-                {StatsEnum.CRIT_HIT, 0 }
+             //{StatsEnum.AP , 1},
+              // {StatsEnum.CRIT_HIT, 0 },
+            //{StatsEnum.REAR_DOMAIN, 0 }
         }, bannedStats, bannedGear);
 
         var weaponTypes = new List<ItemTypesEnum>();
@@ -230,11 +245,20 @@ internal class Program
         var _arma_2da_mano = arma_2da_mano.CalculateDamage(calculateReq, stats);
 
         var _epics = epics
-            .Where(x => x.GiveExtra(StatsEnum.AP, weaponTypes))
+           // .Where(x => x.GiveExtra(StatsEnum.AP, weaponTypes))
             .ToList().CalculateDamage(calculateReq, stats);
         var _relics = relics
             .Where(x => x.GiveExtra(StatsEnum.AP, weaponTypes))
             .ToList().CalculateDamage(calculateReq, stats);
+
+        var items2 = botas.Concat(casco).Concat(amuletos).Concat(capa).Concat(coraza).Concat(hombreras).Concat(cinturon).Concat(arma_1_mano).Concat(arma_2_manos)
+            .Concat(emblema).Concat(rings).ToList().CalculateDamage(calculateReq, stats)
+            .GroupBy(x => x.Key.Definition.Item.BaseParameters.ItemType.Definition.EquipmentPositionsData)
+            .Select(x => new { type = x.Key, item = x.OrderByDescending(y => y.Value).FirstOrDefault() });
+
+        var cat = items.Get(24162);
+        var pet = items.Get(28371);
+
 
         CharacterEquipments equip = new CharacterEquipments();
 
@@ -242,7 +266,7 @@ internal class Program
         var equips = new CharacterEquipments();
         //equips.Add(items.Get(29635));
         //equips.Add(items.Get(31904));
-        //equips.Add(items.Get(25938));
+        equips.Add(items.Get(29635));
         var __equiOptimized = Optimize(_cascos,
             _amuletos,
             _corazas,
@@ -257,66 +281,43 @@ internal class Program
             _epics,
             _arma_2_manos,
             _arma_2da_mano, equips);
-
+            
         __equiOptimized.Stats += stats;
         var equpstats = __equiOptimized.Stats.CalculateDamage(calculateReq, stats);//38408
-
-        await GenerateZenith(maxLevel, $"Build {DateTimeOffset.Now.ToUnixTimeSeconds()}", __equiOptimized.Items.Select(x => x.Value).ToArray());
+        Console.WriteLine(__equiOptimized.Stats);
+        Console.WriteLine("Enter to export");
+        Console.ReadLine();
+        await GenerateZenith(maxLevel, $"Build {DateTimeOffset.Now.ToUnixTimeSeconds()}", pet, cat, __equiOptimized.Items.Select(x => x.Value).ToArray());
     }
 
-    private static async Task GenerateZenith(int lvl, string name, params Item[] items)
+    private static async Task GenerateZenith(int lvl, string name, Item pet, Item mount, params Item[] items)
     {
         List<ItemZenith> items_zenith = new List<ItemZenith>();
         bool isFirstRing = true;
         foreach (var item in items)
         {
             var _item = await ZenithHandler.GetSingleItem(item);
-            var itemType = item.Definition.Item.BaseParameters.ItemType.ItemTypeEnum;
-            ZenithSideEquipEnum metaSide;
-            switch (itemType)
-            {
-                case ItemTypesEnum.Casco: metaSide = ZenithSideEquipEnum.HELM; break;
-                case ItemTypesEnum.Amuleto: metaSide = ZenithSideEquipEnum.NECKLACE; break;
-                case ItemTypesEnum.Coraza: metaSide = ZenithSideEquipEnum.BREATSPLACE; break;
-                case ItemTypesEnum.Anillo:
-                    metaSide = isFirstRing ? ZenithSideEquipEnum.LEFT_RING : ZenithSideEquipEnum.RIGHT_RING;
-                    isFirstRing = false;
-                    break;
-                case ItemTypesEnum.Botas: metaSide = ZenithSideEquipEnum.BOOTS; break;
-                case ItemTypesEnum.Capa: metaSide = ZenithSideEquipEnum.CAPE; break;
-                case ItemTypesEnum.Hombreras: metaSide = ZenithSideEquipEnum.SHOULDERS; break;
-                case ItemTypesEnum.Cinturon: metaSide = ZenithSideEquipEnum.BELT; break;
-                case ItemTypesEnum.Emblema: metaSide = ZenithSideEquipEnum.EMBLEM; break;
-                default:
-                    {
-                        var oneHandType = ItemTypesEnum.Null_751.GetOneHandTypes();
-                        var secondHandType = ItemTypesEnum.Null_751.GetSecondHandType();
-                        var twoHandType = ItemTypesEnum.Null_751.GetTwoHandedTypes();
-
-                        if (oneHandType.Contains(itemType) || twoHandType.Contains(itemType))
-                        {
-                            metaSide = ZenithSideEquipEnum.FIRST_HAND;
-                            break;
-                        }
-
-                        if (secondHandType.Contains(itemType))
-                        {
-                            metaSide = ZenithSideEquipEnum.SECOND_HAND;
-                            break;
-                        }
-
-                        throw new Exception("Not handled: " + itemType);
-                    }
-            }
-            _item.Metadata = new Metadata() { Side = (int)metaSide };
+            _item.AddMetaData(
+                item,
+                ItemTypesEnum.Null_751.GetOneHandTypes().Concat(ItemTypesEnum.Null_751.GetTwoHandedTypes()).ToArray(),
+                ItemTypesEnum.Null_751.GetSecondHandType(),
+                isFirstRing
+                );
             _item.Elements();
             items_zenith.Add(_item);
+
+            if(item.Definition.Item.BaseParameters.ItemType.ItemTypeEnum == ItemTypesEnum.Anillo)
+                isFirstRing = false;
         }
 
-        var build = await ZenithHandler.Create(lvl, name);
+        var build = "yhkr7"; //await ZenithHandler.Create(lvl, name);
         Console.WriteLine("Created Build in zenith: " + build);
         var info = await ZenithHandler.GetBuild(build);
         Console.WriteLine($"Fetched data from build [{build}]: {info.NameBuild} - {info.IdBuild} ");
+        var pet_item = await ZenithHandler.GetSingleItem(pet);
+        var mount_item = await ZenithHandler.GetSingleItem(mount);
+        await ZenithHandler.Add(pet_item.AddMetaData(pet), info.IdBuild);
+        await ZenithHandler.Add(mount_item.AddMetaData(mount), info.IdBuild);
         foreach (var item in items_zenith)
             await ZenithHandler.Add(item, info.IdBuild);
         Console.WriteLine($"Opening url: {build.GetZenithLink()}");
