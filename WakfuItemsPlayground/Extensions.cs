@@ -2,6 +2,7 @@
 using Domain.Models.Stats;
 using Domain.Models.Stats.Combat;
 using Domain.Models.WAKFUAPI;
+using System.Runtime.CompilerServices;
 using WakfuItemsPlayground.Enums;
 
 namespace WakfuItemsPlayground
@@ -11,6 +12,7 @@ namespace WakfuItemsPlayground
         public static ItemTypesEnum[] GetOneHandTypes(this ItemTypesEnum _enum) => [ItemTypesEnum.AgujaUnaMano, ItemTypesEnum.ArmaUnaMano, ItemTypesEnum.BastonUnaMano, ItemTypesEnum.CartaUnaMano, ItemTypesEnum.EspadaUnaMano, ItemTypesEnum.VaritaUnaMano];
         public static ItemTypesEnum[] GetTwoHandedTypes(this ItemTypesEnum _enum) => [ItemTypesEnum.ArcoDosManos, ItemTypesEnum.ArmaDosManos, ItemTypesEnum.BastonDosManos, ItemTypesEnum.EspadaDosManos, ItemTypesEnum.HachaDosManos, ItemTypesEnum.MartilloDosManos, ItemTypesEnum.PalaDosManos];
         public static ItemTypesEnum[] GetSecondHandType(this ItemTypesEnum _enum) => [ItemTypesEnum.SegundaMano, ItemTypesEnum.DagaSegundaMano];
+        public static string YesNo(this bool _bool) => _bool ? "Si" : "No";
 
         public static List<Item> Filter(this List<Item> items, int min, int max, ItemTypesEnum[] type = null, ItemRarity[] quality = null, Dictionary<StatsEnum, double> effects = null, List<StatsEnum> bannedStats = null, int[] excludedIds = null)
         {

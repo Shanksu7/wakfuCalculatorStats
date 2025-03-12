@@ -13,14 +13,12 @@ namespace ZenithWebHandler.Handler
 {
     public class ZenithHandler
     {
-        const string urlBase = "https://api.zenithwakfu.com/builder/api/";
-
         public static async Task<string> Create(int lvl, string name)
         {
             var job = new CreateZenithBuildModel
             {
                 Name = name,
-                Level = 245,
+                Level = lvl,
                 JobId = 10,
                 IsVisible = true,
                 Flags = new List<string>()
@@ -44,7 +42,6 @@ namespace ZenithWebHandler.Handler
             queryParams["rarity[]"] = item.Definition.Item.BaseParameters.Rarity.ToString();
             queryParams["minLvl"] = (item.Definition.Item.Level-1).ToString();
             queryParams["maxLvl"] = item.Definition.Item.BaseParameters.ItemTypeId == 611 ? "50" : item.Definition.Item.Level.ToString();
-            //queryParams["type[]"] = item.Definition.Item.BaseParameters.ItemTypeId.ToString();
             var _params = queryParams.ToString().Replace('+', ' ');
             var items = await client.GetItems(_params);
             var data = items.FirstOrDefault(x => x.IdEquipment.Value == item.Definition.Item.Id);

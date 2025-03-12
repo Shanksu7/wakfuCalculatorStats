@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WakfuItemsPlayground", "Wak
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenithWebHandler", "ZenithWebHandler\ZenithWebHandler.csproj", "{66E4381D-2410-4F52-9CD4-8DC04D5410EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Genetics", "Genetics\Genetics.csproj", "{948A13F5-2BC4-4EC3-B480-AEE9F0B3F4FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{66E4381D-2410-4F52-9CD4-8DC04D5410EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66E4381D-2410-4F52-9CD4-8DC04D5410EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66E4381D-2410-4F52-9CD4-8DC04D5410EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{948A13F5-2BC4-4EC3-B480-AEE9F0B3F4FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{948A13F5-2BC4-4EC3-B480-AEE9F0B3F4FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{948A13F5-2BC4-4EC3-B480-AEE9F0B3F4FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{948A13F5-2BC4-4EC3-B480-AEE9F0B3F4FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

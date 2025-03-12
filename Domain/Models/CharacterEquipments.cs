@@ -45,7 +45,7 @@ namespace Domain.Models
             if (!added) throw new Exception("a?");
         }
 
-        public void AddSingle(Dictionary<Item, double> dict)
+        public bool AddSingle(Dictionary<Item, double> dict)
         {
             if (dict.Any())
             {
@@ -53,9 +53,10 @@ namespace Domain.Models
                 {
                     var added = Add(dict.FirstOrDefault().Key);
                     if (!added) continue;
-                    else break;
+                    else return true;
                 }
             }
+            return false;
         }
 
         public bool Add(Item item)
@@ -83,12 +84,14 @@ namespace Domain.Models
                 if (Items.Count(x => (ItemRarity)x.Value.Definition.Item.BaseParameters.Rarity == ItemRarity.RELIC) > 0) return false;
 
             var added = false;
+            var position_used = string.Empty;
             foreach (var position in itemType.Definition.EquipmentPositions)
             {
                 if (!OcupiedPositions.Contains(position))
                 {
                     OcupiedPositions.Add(position);
                     added = true;
+                    position_used = position;
                     break;
                 }
             }
@@ -126,7 +129,7 @@ namespace Domain.Models
                 }
             }
 
-            Console.WriteLine($"Using: {item.ToString()}");
+            Console.WriteLine($"Using: {item.ToString()} [{position_used}] [{item.Definition.StatsCollection.ToString()}]");
             return true;
         }
 
