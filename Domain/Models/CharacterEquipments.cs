@@ -42,6 +42,7 @@ namespace Domain.Models
                 added = Add(key);
                 if (added) break;
             }
+
             if (!added) throw new Exception("a?");
         }
 
@@ -151,6 +152,9 @@ namespace Domain.Models
                 return text;
             }
         }
+
+        public bool HasRelic => Items.Any(x => x.Value.Definition.Item.BaseParameters.Rarity == (int)ItemRarity.RELIC);
+        public bool HasEpic => Items.Any(x => x.Value.Definition.Item.BaseParameters.Rarity == (int)ItemRarity.EPIC);
 
     }
 }

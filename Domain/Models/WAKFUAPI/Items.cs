@@ -36,13 +36,17 @@
 
         public bool GiveExtra(StatsEnum stat, List<ItemTypesEnum> weaponTypes)
         {
-            var apExtra = new List<ItemTypesEnum>() { ItemTypesEnum.Amuleto, ItemTypesEnum.Capa, ItemTypesEnum.Coraza };
+            var apExtra = new List<ItemTypesEnum>() { ItemTypesEnum.Amuleto, ItemTypesEnum.Capa, ItemTypesEnum.Coraza, ItemTypesEnum.SegundaMano, ItemTypesEnum.DagaSegundaMano, ItemTypesEnum.EscudoSegundaMano };
+            var apExtraSecond = new List<ItemTypesEnum>() {  ItemTypesEnum.SegundaMano, ItemTypesEnum.DagaSegundaMano, ItemTypesEnum.EscudoSegundaMano, ItemTypesEnum.Emblema };
             var mpExtra = new List<ItemTypesEnum>() { ItemTypesEnum.Botas, ItemTypesEnum.Coraza };
             apExtra.AddRange(weaponTypes);
             switch (stat)
             {
                 case StatsEnum.AP:
                     {
+                        if (apExtraSecond.Contains(Definition.Item.BaseParameters.ItemType.ItemTypeEnum))
+                            return Definition.StatsCollection[StatsEnum.AP] > 0;
+
                         if (apExtra.Contains(Definition.Item.BaseParameters.ItemType.ItemTypeEnum))
                             return Definition.StatsCollection[StatsEnum.AP] > 1;
                         else

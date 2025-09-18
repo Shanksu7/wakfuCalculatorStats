@@ -10,19 +10,19 @@ using ScrapperZenith;
 
 //stats[StatsEnum.INDIRECT_DAMAGE] += 30;
 
-var xel = await Scrapper.GetZenithData("https://zenithwakfu.com/builder/httjz");
+//var xel = await Scrapper.GetZenithData("https://www.zenithwakfu.com/builder/lbfee");
 //var tactic = 25.0;
 //var puntualidad = 50.0;
 //xel[StatsEnum.INFLICTED_DAMAGE] += (tactic+puntualidad);
 
 
 var mrpunchy = new StatsCollection();
-mrpunchy[StatsEnum.FIRE_RESIST] = 1040;
+mrpunchy[StatsEnum.FIRE_RESIST] = 714;
 mrpunchy[StatsEnum.WATER_RESIST] = 1040;
 mrpunchy[StatsEnum.AIR_RESIST] = 1040;
 mrpunchy[StatsEnum.EARTH_RESIST] = 1040;
 
-xel[StatsEnum.INFLICTED_DAMAGE] += 40 + 20 + 25;
+//xel[StatsEnum.INFLICTED_DAMAGE] += 20 + 40 + 15 + 30;
 //xel[StatsEnum.FIRE_DOMAIN] += (xel[StatsEnum.FIRE_DOMAIN] * 0.2);
 
 
@@ -49,10 +49,13 @@ while (true)
 
     //var maldito_sin_elecon = sadi_noelecon.CalculateDamage(76, DomainType.AIR, mrpunchy, SideDamage.FRONT, false, true, false, false, true, 80.0);  
     //var toxina_sin_elecon = sadi_noelecon.CalculateDamage(490, DomainType.AIR, mrpunchy, SideDamage.FRONT, false, true, false, false, true, 80.0);
-    CalculateDamage dmgNoCrit = new(99, DomainType.FIRE, mrpunchy, SideDamage.FRONT, false, RangeDamageEnum.DIST, false, false, false, 0);
-    CalculateDamage dmgCrit = new(124, DomainType.FIRE, mrpunchy, SideDamage.FRONT, true, RangeDamageEnum.DIST, false, false, false, 0);
-    var noCrit = xel.CalculateDamage(dmgNoCrit); //6938
-    var crit = xel.CalculateDamage(dmgCrit); //8690
+    foreach(var _char in Pj())
+    {
+        CalculateDamage dmgNoCrit = new(100, DomainType.FIRE, mrpunchy, SideDamage.FRONT, false, RangeDamageEnum.DIST, false, false, true, null);
+        CalculateDamage dmgCrit = new(200, DomainType.FIRE, mrpunchy, SideDamage.FRONT, true, RangeDamageEnum.DIST, false, false, true, null);
+        var noCrit = _char.CalculateDamage(dmgNoCrit); //6938
+        var crit = _char.CalculateDamage(dmgCrit); //8690
+    }
 
     //var poisonNoCrit = sadi.CalculateDamage(28, DomainType.AIR, puch, SideDamage.FRONT, false, true, false, false, true);//248
     //var poisonCrit = sadi.CalculateDamage(35, DomainType.AIR, puch, SideDamage.FRONT, false, true, false, false, true);//311
@@ -60,10 +63,21 @@ while (true)
 
     //var noCrit = xel.CalculateDamage(132, DomainType.FIRE, mrpunchy, SideDamage.FRONT, false, true, false, false, false);
     //var crit = xel.CalculateDamage(166, DomainType.FIRE, mrpunchy, SideDamage.FRONT, true, true, false, false, false);
-
 }
 Console.ReadKey();
 
+StatsCollection[] Pj()
+{
+    var stats = new StatsCollection();
+    stats.Add(StatsEnum.FIRE_DOMAIN, 8502);
+    stats.Add(StatsEnum.INFLICTED_DAMAGE, 95+30);
+
+
+    var stats2 = new StatsCollection();
+    stats2.Add(StatsEnum.FIRE_DOMAIN, 6874);
+    stats2.Add(StatsEnum.INFLICTED_DAMAGE, 155+30);
+    return [stats, stats2];
+}
 
 StatsCollection Sadi()
 {

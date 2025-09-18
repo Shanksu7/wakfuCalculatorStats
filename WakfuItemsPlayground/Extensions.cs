@@ -14,7 +14,7 @@ namespace WakfuItemsPlayground
         public static ItemTypesEnum[] GetSecondHandType(this ItemTypesEnum _enum) => [ItemTypesEnum.SegundaMano, ItemTypesEnum.DagaSegundaMano];
         public static string YesNo(this bool _bool) => _bool ? "Si" : "No";
 
-        public static List<Item> Filter(this List<Item> items, int min, int max, ItemTypesEnum[] type = null, ItemRarity[] quality = null, Dictionary<StatsEnum, double> effects = null, List<StatsEnum> bannedStats = null, int[] excludedIds = null)
+        public static List<Item> Filter(this List<Item> items, int min, int max, ItemTypesEnum[] type = null, ItemRarity[] quality = null, Dictionary<StatsEnum, double> effects = null, bool? alwaysResis = null, List<StatsEnum> bannedStats = null, int[] excludedIds = null)
         {
             var result = items.Where(x =>
             (excludedIds == null || !excludedIds.Contains(x.Definition.Item.Id))
@@ -23,7 +23,8 @@ namespace WakfuItemsPlayground
             && (type == null || type.Contains(x.Definition.Item.BaseParameters.ItemType.ItemTypeEnum))
             && (quality == null || quality.ToList().Contains((ItemRarity)x.Definition.Item.BaseParameters.Rarity))
             && (effects == null || x.CompareItem(effects))
-            && (bannedStats == null || x.CompareItem(bannedStats))).ToList();
+            && (bannedStats == null || x.CompareItem(bannedStats))
+            && (alwaysResis == null || x.HasResis())).ToList();
 
             //if (!result.Any()) throw new Exception($"NO ITEMS ON {string.Join(',', type)}");
             if (type != null)
@@ -70,6 +71,15 @@ namespace WakfuItemsPlayground
                 }
             }
             return true;
+        }
+
+        static bool HasResis(this Item item)
+        {
+            return 
+                item.Definition.StatsCollection.Contains(StatsEnum.AIR_RESIST, out _) ||
+                item.Definition.StatsCollection.Contains(StatsEnum.EARTH_RESIST, out _) ||
+                item.Definition.StatsCollection.Contains(StatsEnum.WATER_RESIST, out _) ||
+                item.Definition.StatsCollection.Contains(StatsEnum.FIRE_RESIST, out _);
         }
 
         public static Dictionary<Item, double> CalculateDamage(this List<Item> data, CalculateDamage damage, StatsCollection addedStats = null)
